@@ -1,3 +1,7 @@
-FROM golang:1.6-alpine
+FROM gliderlabs/alpine:3.4
 
-RUN go get -u github.com/jstemmer/go-junit-report
+COPY . /go/src/github.com/gliderlabs/registrator
+RUN apk-install -t build-deps go git \
+    && export GOPATH=/go \
+    && go get -u github.com/jstemmer/go-junit-report \
+    && apk del --purge build-deps
